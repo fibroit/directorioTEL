@@ -1,6 +1,9 @@
 .App {
   text-align: center;
 }
+*{
+  background-color: antiquewhite;
+}
 
 .App-logo {
   height: 40vmin;
@@ -36,3 +39,7 @@
     transform: rotate(360deg);
   }
 }
+/* .eldelh{
+  position: absolute;
+  left: 750px;
+} */

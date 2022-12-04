@@ -1,3 +1,9 @@
-.parrafo{
-    background-color: red;
+/* 
+.elreact{
+position: absolute;
+left: 500px;
+} */
+.elinput{
+    border-radius: 8px;
+    width: 15vw;
 }

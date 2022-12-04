@@ -6,57 +6,75 @@ import Busqueda from './Busqueda';
 import ListaContactos from './ListaContactos';
 import Contacto from './Contacto';
 import AgregaContacto from './AgregaContacto';
-import {ContactoContext,ContactoProvider} from './Context/ContactoProvider';
+import {DirectorioContext,DirectorioProvider} from './Context/DirectorioProvider';
+import AgregarContacto from './AgregaContacto';
 
 function App() {
-  let contactos=[
+  /* let contactos=[
     {
       nombre:"Guillermo",
       telefono:"123456789",
-      correo:"guillermo@gmail.com"
+      correo:"guillermo@gmail.com",
     },
     {
       nombre:"Marcelo",
       telefono:"987654321",
-      correo:"marcelo@gmail.com"
+      correo:"marcelo@gmail.com",
     },
     {
       nombre:"Fabian",
       telefono:"112233445",
       correo:"fabian@gamail.com",
     },
+    {
+      nombre:'Ivan',
+      telefono:"222233445",
+      correo:"ivan@gamail.com",
+    },
   ]
-  let [textoBusqueda,setTextoBusqueda]=React.useState('');
+ */
+return (
+  <DirectorioProvider>
+  <DirectorioContext.Consumer>
+{
+  ({
+    contactosFiltrados,
+    borrarContacto,
+    contadorContactos,
+    modal,
+    setModal
+  })=>(
 
-if(textoBusqueda.length>0){
-  let textoBusquedaLowerCase=textoBusqueda.toLowerCase();
-  contactosFiltrados=contactos.filter((contacto)=>{
-    return contacto.nombre.toLocaleLowerCase().includes(textoBusquedaLowerCase);
-  })
-}
-else{
-contactosFiltrados=contactos;
-}
-
-  return (
     <React.Fragment>
-      <h1>Mis contactos</h1>
-      <Busqueda textoBusqueda={textoBusqueda} setTextoBusqueda={setTextoBusqueda}/>
-      <ListaContactos>
-        {
-          contactosFiltrados.map((contacto)=>{
-            return(
-              <Contacto
-              nombre={contacto.nombre}
-              correo={contacto.correo}
-              telefono={contacto.telefono}
-              />)
+      <center>
+        <h1 className="directory">DIRECTORIO ({contadorContactos})</h1>
+        <Busqueda/>
+        <button onClick={()=>{setModal(true)}}>Agrega Contacto</button>
+        <ListaContactos>
+          {
+            contactosFiltrados.map((contacto)=>{
+              return(
+                <Contacto
+                nombre={contacto.nombre}
+                correo={contacto.correo}
+                telefono={contacto.telefono}
+                borrarContacto={()=>{borrarContacto(contacto.nombre)}}
             
-          })
-        }
-      </ListaContactos>
-      <ContactoProvider></ContactoProvider>
-    </React.Fragment>
+              />  
+              )
+            })
+          }
+
+        </ListaContactos>       
+        {modal &&<AgregaContacto/>} 
+        </center>     
+        </React.Fragment>
+        
+        )
+}
+  </DirectorioContext.Consumer>
+  </DirectorioProvider>
+
   );
 }
 
